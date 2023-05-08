@@ -26,7 +26,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   checkOtp(){
     print('expected pin $expectedPin');
     if(enteredPin!= null && enteredPin == expectedPin){
-      Get.toNamed('/home_screen');
+      if(OtpServices.userExists){
+        Get.toNamed('/home_screen');
+      }
+      else{
+        Get.toNamed('/registration_screen');
+      }
+
     }
     else{
       Get.defaultDialog(

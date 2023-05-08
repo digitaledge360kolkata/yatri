@@ -14,7 +14,7 @@ class OtpServices{
 
   late Map mappedResponse;
   late String otp;
-  late bool userExists;
+  static late bool userExists;
   Future sendOtp(String phoneNumber) async {
 
 

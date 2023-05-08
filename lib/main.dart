@@ -6,6 +6,7 @@ import 'package:yatri/screens/home_screen.dart';
 import 'package:yatri/screens/home_screens/home_page.dart';
 import 'package:yatri/screens/startup_screens/login_screen.dart';
 import 'package:yatri/screens/startup_screens/otp_verification_screen.dart';
+import 'package:yatri/screens/startup_screens/registration_screen.dart';
 import 'package:yatri/screens/startup_screens/welcome_screen.dart';
 
 import 'constants/colors.dart';
@@ -30,6 +31,7 @@ void main() async {
         GetPage(name: '/login', page: ()=> LoginScreen(),),
 
         GetPage(name: '/home_screen', page: () => HomeScreen(),),
+        GetPage(name: '/registration_screen', page: () => RegistrationScreen(),),
 
 
       ],
