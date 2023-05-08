@@ -6,11 +6,13 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:yatri/constants/colors.dart';
 import 'package:yatri/constants/text_styles.dart';
+import 'package:yatri/services/otp_services.dart';
 
 import '../../widgets/company_logo.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  const OtpVerificationScreen({Key? key}) : super(key: key);
+  String phoneNumber;
+  OtpVerificationScreen({Key? key, required this.phoneNumber}) : super(key: key);
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -19,9 +21,10 @@ class OtpVerificationScreen extends StatefulWidget {
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   String? enteredPin;
-  String expectedPin = '1234';
+  late String expectedPin;
 
   checkOtp(){
+    print('expected pin $expectedPin');
     if(enteredPin!= null && enteredPin == expectedPin){
       Get.toNamed('/home_screen');
     }
@@ -32,6 +35,30 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           textCancel: 'Try Again!'
       );
     }
+  }
+
+  late var response;
+
+  sendOtp() async{
+    var otpService = OtpServices();
+
+    response = await otpService.sendOtp(widget.phoneNumber);
+    if(response!=null){
+      expectedPin = response.otp;
+      print(response.otp);
+      print(response.toString());
+    }
+    else{
+      print('null');
+    }
+  }
+
+  @override
+  void initState(){
+    // TODO: implement initState
+    super.initState();
+    sendOtp();
+
   }
 
 
@@ -49,6 +76,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text('Enter the OTP sent to +91${widget.phoneNumber}', style: kSubHeading2TextStyle,),
+                  const SizedBox(height: 10,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: OTPTextField(
@@ -74,7 +103,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       },
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   ElevatedButton(
                     onPressed: () {
                       checkOtp();

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:yatri/constants/text_styles.dart';
+import 'package:yatri/screens/startup_screens/otp_verification_screen.dart';
 
 import '../../constants/colors.dart';
 
@@ -40,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
     else if(txtPhoneNumberTextEditingController.text.isPhoneNumber){
-      Get.toNamed('/otp_verification_screen');
+      Get.to(OtpVerificationScreen(phoneNumber: txtPhoneNumberTextEditingController.text),);
     }
   }
 
@@ -49,66 +50,53 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
-        child: Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  colorFilter: ColorFilter.mode(kBackgroundColor, BlendMode.colorDodge),
-                  image: AssetImage('asset/images/bg home.png'),
-                )
-              ),
-
+            Expanded(
+              flex: 2,
+              child: Image.asset('asset/images/logo.png'),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Image.asset('asset/images/logo.png'),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: txtPhoneNumberTextEditingController,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          style: kSubHeading1TextStyle,
-                          maxLength: 10,
-                          decoration: InputDecoration(
-                            hintText: 'Phone number',
-                            suffixIconColor: kPrimaryColor,
-                            labelText: 'Phone',
-                            labelStyle: kSubHeading2TextStyle,
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: txtPhoneNumberTextEditingController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      style: kSubHeading1TextStyle,
+                      maxLength: 10,
+                      decoration: InputDecoration(
+                        hintText: 'Phone number',
+                        suffixIconColor: kPrimaryColor,
+                        labelText: 'Phone',
+                        labelStyle: kSubHeading2TextStyle,
 
-                            prefix: Text('+91 ', style: kSubHeading1TextStyle.copyWith(),),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-
-                          ),
+                        prefix: Text('+91 ', style: kSubHeading1TextStyle.copyWith(),),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18),
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            checkNumber();
 
-                          },
-                          child: Text('Login',style: kSubHeading2TextStyle,),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    ElevatedButton(
+                      onPressed: () {
+                        checkNumber();
+
+                      },
+                      child: Text('Login',style: kSubHeading2TextStyle,),
+                    ),
+                  ],
                 ),
-
-
-
-              ],
+              ),
             ),
+
+
+
           ],
         ),
       ),

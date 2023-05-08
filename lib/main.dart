@@ -28,7 +28,7 @@ void main() async {
 
       getPages: [
         GetPage(name: '/login', page: ()=> LoginScreen(),),
-        GetPage(name: '/otp_verification_screen', page: () => OtpVerificationScreen(),),
+
         GetPage(name: '/home_screen', page: () => HomeScreen(),),
 
 
